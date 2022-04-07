@@ -3,10 +3,10 @@ module.exports = {
   paths: {
     artifacts: './src/artifacts',
   },
-  networks: {
-    ropsten: {
-      url: `https://testnet.aurora.dev`,
-      accounts: [`ROPSTEN_PRIVATE_KEY`]
-    }
-  }
+  // networks: {
+  //   ropsten: {
+  //     url: `https://testnet.aurora.dev`,
+  //     accounts: [`ROPSTEN_PRIVATE_KEY`]
+  //   }
+  // }
 };
