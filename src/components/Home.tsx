@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import DevsN3ARMe from "../artifacts/contracts/DevsN3ARMe.sol/DevsN3ARMe.json";
 
-const contractAddress = "0x9E423D0dAb80d739691e1C4Ad65d664806777bD4";
+const contractAddress = "0xC95e56018Ba178eF91eb2aB251c4B03e44454530";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
