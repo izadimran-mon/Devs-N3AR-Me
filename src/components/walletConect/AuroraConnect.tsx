@@ -14,7 +14,7 @@ const web3Modal = new Web3Modal({
   providerOptions, // required
 });
 
-export const AuroraConnect = () => {
+export const AuroraConnect = ({ provider }: { provider: any }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [signer, setSigner] = useState<ethers.Signer>();
   const [connectedAddr, setConnectedAddr] = useState<string>();
@@ -48,6 +48,14 @@ export const AuroraConnect = () => {
         setIsConnected(true);
       }
     });
+
+    const getAddr = async () => {
+      if (provider) {
+        setSigner(provider.getSigner());
+        setConnectedAddr(await provider.getSigner().getAddress());
+      }
+    };
+    getAddr();
   }, []);
 
   return (

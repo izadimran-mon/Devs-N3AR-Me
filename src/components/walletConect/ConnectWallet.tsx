@@ -39,7 +39,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "#161522",
   color: "white",
   border: "2px solid #000",
@@ -47,7 +46,7 @@ const style = {
   p: 4,
 };
 
-export default function ConnectWallet() {
+export default function ConnectWallet({ provider }: { provider: any }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -76,7 +75,7 @@ export default function ConnectWallet() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style} className="rounded-md">
+          <Box sx={style} className="rounded-md w-72 md:w-96">
             <Typography
               id="parent-modal-title"
               variant="h6"
@@ -154,7 +153,7 @@ export default function ConnectWallet() {
                         onClick={() => setAuroraOpen(false)}
                       />
                     </IconButton>
-                    <AuroraConnect />
+                    <AuroraConnect provider={provider} />
                   </Box>
                 </Fade>
               </Modal>
