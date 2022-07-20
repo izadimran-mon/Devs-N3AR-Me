@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { AuroraTestnetChain } from "../../constant/constants";
+import Button from "@mui/material/Button";
 
 const providerOptions = {
   /* See Provider Options Section */
@@ -13,12 +14,17 @@ const web3Modal = new Web3Modal({
   providerOptions, // required
 });
 
-export const AuroraConnect = () => {
+export const AuroraConnect = ({ provider }: { provider: any }) => {
   const [isConnected, setIsConnected] = useState(false);
+  const [signer, setSigner] = useState<ethers.Signer>();
+  const [connectedAddr, setConnectedAddr] = useState<string>();
+
   const connectWallet = async () => {
     const instance = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(instance);
     const signer = provider.getSigner();
+    setSigner(signer);
+    setConnectedAddr(await signer.getAddress());
     window.ethereum.request({
       method: "wallet_addEthereumChain",
       params: [AuroraTestnetChain],
@@ -42,16 +48,27 @@ export const AuroraConnect = () => {
         setIsConnected(true);
       }
     });
+
+    const getAddr = async () => {
+      if (provider) {
+        setSigner(provider.getSigner());
+        setConnectedAddr(await provider.getSigner().getAddress());
+      }
+    };
+    getAddr();
   }, []);
 
   return (
     <>
-      {isConnected ? (
-        <div>Connected</div>
+      {isConnected && connectedAddr ? (
+        <div>
+          Connected as:{" "}
+          {connectedAddr.slice(0, 6) + "..." + connectedAddr.slice(38, 43)}
+        </div>
       ) : (
-        <button className="connectWallet" onClick={connectWallet}>
-          Connect Wallet
-        </button>
+        <Button variant="contained" onClick={connectWallet}>
+          Connect to Metamask
+        </Button>
       )}
     </>
   );

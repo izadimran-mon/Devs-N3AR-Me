@@ -1,6 +1,8 @@
 import * as nearAPI from "near-api-js";
 import { useState, useEffect } from "react";
 import { url } from "../../constant/constants";
+import Button from "@mui/material/Button";
+
 const { connect, keyStores, WalletConnection } = nearAPI;
 
 export const NearConnect = () => {
@@ -42,13 +44,13 @@ export const NearConnect = () => {
     <>
       {isSignedIn ? (
         <>
-          <div>hi! {wallet.account().accountId}</div>
-          <button onClick={signOut}>sign out</button>
+          <div>Connected as: {wallet.account().accountId}</div>
+          <Button onClick={signOut}>sign out</Button>
         </>
       ) : (
         <>
           <div>Please connect your account!</div>
-          <button onClick={signIn}>connect</button>
+          <Button onClick={signIn}>connect</Button>
         </>
       )}
     </>
