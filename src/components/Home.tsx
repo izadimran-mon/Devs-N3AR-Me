@@ -27,6 +27,7 @@ import DNM21 from "../assets/DNM Eggs/DNM Eggs/21.webp";
 import { WalletContext } from "../WalletContext";
 
 import { getConfig } from "../config";
+const BN = require("bn.js");
 
 function Home() {
   const nfts: { image: string }[] = [
@@ -55,6 +56,7 @@ function Home() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
   const [currentSupply, setCurrentSupply] = useState(0);
+  const [ownerSupply, setOwnerSupply] = useState(0);
 
   const walletSettings = {
     isWalletConnected,
@@ -65,12 +67,37 @@ function Home() {
     const getSupply = async () => {
       const maxSupply = await window.contract.max_supply();
       const totalSupply = await window.contract.nft_total_supply();
-
+      const accountSupply = await window.contract.nft_supply_for_owner({
+        account_id: window.accountId,
+      });
       setTotalSupply(maxSupply);
       setCurrentSupply(totalSupply);
+      setOwnerSupply(accountSupply);
     };
     getSupply();
   }, []);
+
+  const generateMintPayload = () => {
+    return {
+      token_id: `${window.accountId}-${ownerSupply}-devs-n3ar-me-token`,
+      metadata: {
+        title: "Devs N3AR Me Token",
+        description:
+          "Token that symbolizes your commitment as the next generation of Web 3.0 Developers",
+        media:
+          "https://firebasestorage.googleapis.com/v0/b/devs-n3ar-me.appspot.com/o/1.png?alt=media&token=ee09c60c-63fe-443a-8dae-a2f52791f50c",
+      },
+      receiver_id: window.accountId,
+    };
+  };
+
+  const mintNFT = async () => {
+    const response = await window.contract.nft_mint(
+      generateMintPayload(),
+      300000000000000, // attached GAS (optional)
+      new BN("1000000000000000000000000")
+    );
+  };
 
   return (
     <WalletContext.Provider value={walletSettings}>
@@ -106,6 +133,15 @@ function Home() {
           ))}
         </Marquee>
         <div className="flex flex-col justify-center items-center space-y-4">
+          <div className="flex justify-center items-center">
+            {currentSupply}/{totalSupply} MINTED
+          </div>
+          {window.walletConnection.isSignedIn() && (
+            <div className="flex justify-center items-center">
+              You currently own {ownerSupply} NFT(s)
+            </div>
+          )}
+
           <Button
             className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
             variant="contained"
@@ -115,14 +151,14 @@ function Home() {
           <Button
             className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
             variant="contained"
-            disabled={!window.walletConnection.isSignedIn()}
+            disabled={
+              !window.walletConnection.isSignedIn() ||
+              currentSupply === totalSupply
+            }
+            onClick={mintNFT}
           >
             Mint
           </Button>
-
-          <div className="flex justify-center items-center">
-            {currentSupply}/{totalSupply}
-          </div>
         </div>
       </div>
     </WalletContext.Provider>
