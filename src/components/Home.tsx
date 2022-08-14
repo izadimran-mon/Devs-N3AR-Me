@@ -26,6 +26,8 @@ import DNM20 from "../assets/DNM Eggs/DNM Eggs/20.webp";
 import DNM21 from "../assets/DNM Eggs/DNM Eggs/21.webp";
 import { WalletContext } from "../WalletContext";
 
+import { getConfig } from "../config";
+
 function Home() {
   const nfts: { image: string }[] = [
     { image: DNM1 },
@@ -51,12 +53,24 @@ function Home() {
     { image: DNM21 },
   ];
   const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [currentSupply, setCurrentSupply] = useState(0);
+
   const walletSettings = {
     isWalletConnected,
     setIsWalletConnected,
   };
 
-  console.log("connected in home", walletSettings.isWalletConnected);
+  useEffect(() => {
+    const getSupply = async () => {
+      const maxSupply = await window.contract.max_supply();
+      const totalSupply = await window.contract.nft_total_supply();
+
+      setTotalSupply(maxSupply);
+      setCurrentSupply(totalSupply);
+    };
+    getSupply();
+  }, []);
 
   return (
     <WalletContext.Provider value={walletSettings}>
@@ -91,12 +105,25 @@ function Home() {
             </div>
           ))}
         </Marquee>
-        <Button
-          className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
-          variant="contained"
-        >
-          Join the pack
-        </Button>
+        <div className="flex flex-col justify-center items-center space-y-4">
+          <Button
+            className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
+            variant="contained"
+          >
+            Join the pack
+          </Button>
+          <Button
+            className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
+            variant="contained"
+            disabled={!window.walletConnection.isSignedIn()}
+          >
+            Mint
+          </Button>
+
+          <div className="flex justify-center items-center">
+            {currentSupply}/{totalSupply}
+          </div>
+        </div>
       </div>
     </WalletContext.Provider>
   );

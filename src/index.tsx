@@ -20,7 +20,10 @@ declare global {
     walletConnection: WalletConnection;
     accountId: string;
     account: Account;
-    contract: Contract;
+    contract: Contract & {
+      max_supply: () => number;
+      nft_total_supply: () => number;
+    };
   }
 }
 
