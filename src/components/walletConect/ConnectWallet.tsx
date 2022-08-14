@@ -62,7 +62,9 @@ export default function ConnectWallet({ provider }: { provider: any }) {
         variant="contained"
       >
         {/* TODO: Replace with generic wallet connected logic for aurora */}
-        {window.walletConnection.isSignedIn() ? "Connected" : "Connect Wallet"}
+        {window.walletConnection.isSignedIn()
+          ? window.accountId
+          : "Connect Wallet"}
       </BootstrapButton>
       <Modal
         aria-labelledby="parent-modal-title"
