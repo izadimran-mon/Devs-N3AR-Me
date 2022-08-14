@@ -23,6 +23,12 @@ declare global {
     contract: Contract & {
       max_supply: () => number;
       nft_total_supply: () => number;
+      nft_mint: (
+        payload: Record<string, any>,
+        gas: number,
+        someOtherGas: any
+      ) => any;
+      nft_supply_for_owner: ({ account_id }: { account_id: string }) => number;
     };
   }
 }
