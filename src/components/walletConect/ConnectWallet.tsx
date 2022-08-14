@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -15,7 +15,6 @@ import NearLogo from "../../assets/near_logo_stack_wht.svg";
 
 import { AuroraConnect } from "./AuroraConnect";
 import { NearConnect } from "./NearConnect";
-import { WalletContext } from "../../WalletContext";
 
 const BootstrapButton = styled(Button)({
   backgroundColor: "#5CE1E6",
@@ -54,7 +53,6 @@ export default function ConnectWallet({ provider }: { provider: any }) {
 
   const [auroraOpen, setAuroraOpen] = useState(false);
   const [nearOpen, setNearOpen] = useState(false);
-  const { isWalletConnected } = useContext(WalletContext);
 
   return (
     <div>
@@ -63,7 +61,8 @@ export default function ConnectWallet({ provider }: { provider: any }) {
         className="bg-[#5CE1E6] w-44 px-3 py-1 rounded-sm"
         variant="contained"
       >
-        {isWalletConnected ? "Wallet Connected" : "Connect Wallet"}
+        {/* TODO: Replace with generic wallet connected logic for aurora */}
+        {window.walletConnection.isSignedIn() ? "Connected" : "Connect Wallet"}
       </BootstrapButton>
       <Modal
         aria-labelledby="parent-modal-title"
