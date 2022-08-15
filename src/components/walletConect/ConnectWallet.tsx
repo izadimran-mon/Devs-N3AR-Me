@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -61,7 +61,10 @@ export default function ConnectWallet({ provider }: { provider: any }) {
         className="bg-[#5CE1E6] w-44 px-3 py-1 rounded-sm"
         variant="contained"
       >
-        Connect Wallet
+        {/* TODO: Replace with generic wallet connected logic for aurora */}
+        {window.walletConnection.isSignedIn()
+          ? window.accountId
+          : "Connect Wallet"}
       </BootstrapButton>
       <Modal
         aria-labelledby="parent-modal-title"
