@@ -1,4 +1,4 @@
-const CONTRACT_NAME = "mint-test.izadimran2.testnet";
+const CONTRACT_NAME = "contract.devs-n3ar-me.testnet";
 
 export function getConfig(env) {
   switch (env) {

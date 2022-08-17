@@ -95,7 +95,7 @@ function Home() {
     const response = await window.contract.nft_mint(
       generateMintPayload(),
       300000000000000, // attached GAS (optional)
-      new BN("1000000000000000000000000")
+      new BN("100000000000") // new BN("1000000000000000000000000")
     );
   };
 
@@ -142,12 +142,12 @@ function Home() {
             </div>
           )}
 
-          <Button
+          {/* <Button
             className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
             variant="contained"
           >
             Join the pack
-          </Button>
+          </Button> */}
           <Button
             className="bg-[#00529D] text-white font-bold w-40 px-3 py-1 rounded-sm self-center my-5"
             variant="contained"
@@ -157,7 +157,7 @@ function Home() {
             }
             onClick={mintNFT}
           >
-            Mint
+            Join Us
           </Button>
         </div>
       </div>

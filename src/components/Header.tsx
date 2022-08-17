@@ -68,23 +68,23 @@ function Header() {
             "aria-labelledby": "basic-button",
           }}
         >
-          <a
+          {/* <a
             href="/about"
             className="font-bold flex justify-center items-center"
             onClick={handleClose}
           >
             About us
-          </a>
+          </a> */}
           <ConnectWallet provider={provider} />
         </StyledMenu>
       </div>
       <div className="menu hidden md:flex flex-row ml-auto my-auto mr-5 gap-3">
-        <a
+        {/* <a
           href="/about"
           className=" w-32 font-bold flex justify-center items-center"
         >
           About us
-        </a>
+        </a> */}
         <ConnectWallet provider={provider} />
       </div>
       {/* <div className="connectWallet">Connect Aurora</div>
