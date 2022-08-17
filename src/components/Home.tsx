@@ -95,7 +95,7 @@ function Home() {
     const response = await window.contract.nft_mint(
       generateMintPayload(),
       300000000000000, // attached GAS (optional)
-      new BN("100000000000") // new BN("1000000000000000000000000")
+      new BN("10000000000000000000000") // new BN("1000000000000000000000000")
     );
   };
 
