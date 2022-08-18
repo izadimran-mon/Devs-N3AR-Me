@@ -75,8 +75,8 @@ impl Contract {
             owner_id,
             NFTContractMetadata {
                 spec: "nft-1.0.0".to_string(),
-                name: "TavernDAO NFT".to_string(),
-                symbol: "TAVERN".to_string(),
+                name: "Devs N3ar Me NFT V1".to_string(),
+                symbol: "DNM".to_string(),
                 icon: None,
                 base_uri: None,
                 reference: None,

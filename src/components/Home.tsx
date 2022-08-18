@@ -79,7 +79,7 @@ function Home() {
 
   const generateMintPayload = () => {
     return {
-      token_id: `${window.accountId}-${ownerSupply}-devs-n3ar-me-token`,
+      token_id: `${window.accountId}-${Date.now()}-devs-n3ar-me-token`,
       metadata: {
         title: "Devs N3AR Me Token",
         description:
