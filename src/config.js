@@ -1,4 +1,4 @@
-const CONTRACT_NAME = "contract.devs-n3ar-me.testnet";
+const CONTRACT_NAME = "contract.devs-n3ar-me.near";
 
 export function getConfig(env) {
   switch (env) {
